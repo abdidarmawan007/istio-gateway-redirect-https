@@ -1,0 +1,34 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: gateway
+  namespace: production
+spec:
+  selector:
+    istio: ingressgateway # use istio default controller
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+     - 'api.abdidarmawan.com'
+     - 'abdidarmawan.com'
+     - 'www.abdidarmawna.com'
+     - 'career.abdidarmawan.com'
+    tls:
+      httpsRedirect: true
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    hosts:
+     - 'api.abdidarmawan.com'
+     - 'abdidarmawan.com'
+     - 'www.abdidarmawna.com'
+     - 'career.abdidarmawan.com'
+    tls:
+      mode: SIMPLE
+      minProtocolVersion: TLSV1_2
+      serverCertificate: /etc/istio/ingressgateway-certs/tls.crt
+      privateKey: /etc/istio/ingressgateway-certs/tls.key
